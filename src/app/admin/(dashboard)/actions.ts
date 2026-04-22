@@ -38,6 +38,33 @@ function galleryRedirect(status: string, message?: string): never {
   redirect(`/admin/gallery?${params.toString()}`);
 }
 
+function dashboardRedirect(status: string, message?: string): never {
+  const params = new URLSearchParams({ status });
+
+  if (message) {
+    params.set("message", message);
+  }
+
+  redirect(`/admin?${params.toString()}`);
+}
+
+const directUploadMaxBytes = 20 * 1024 * 1024;
+
+type PrepareGalleryUploadInput = {
+  fileName: string;
+  fileType: string;
+  fileSize: number;
+};
+
+type CreatePhotoRecordInput = {
+  image_url: string;
+  storage_path?: string | null;
+  caption?: string | null;
+  category?: string | null;
+  is_featured?: boolean;
+  sort_order?: number;
+};
+
 async function uploadGalleryFile(formData: FormData, oldStoragePath?: string | null) {
   const file = formData.get("image_file");
 
@@ -75,6 +102,93 @@ async function uploadGalleryFile(formData: FormData, oldStoragePath?: string | n
   };
 }
 
+export async function prepareGalleryUploadAction(input: PrepareGalleryUploadInput) {
+  await requireOwner();
+
+  const fileName = String(input.fileName || "photo.jpg");
+  const fileType = String(input.fileType || "image/jpeg");
+  const fileSize = Number(input.fileSize || 0);
+
+  if (!fileType.startsWith("image/")) {
+    return {
+      ok: false,
+      message: "Please choose a JPG, PNG, WebP, or other image file."
+    };
+  }
+
+  if (!fileSize || fileSize > directUploadMaxBytes) {
+    return {
+      ok: false,
+      message: "Please choose an image under 20 MB."
+    };
+  }
+
+  const supabase = createSupabaseAdminClient();
+  const bucket = process.env.SUPABASE_STORAGE_BUCKET || "gallery";
+  const extension = fileName.split(".").pop()?.toLowerCase() || "jpg";
+  const baseName = slugify(fileName.replace(/\.[^/.]+$/, "")) || "photo";
+  const storagePath = `${Date.now()}-${baseName}.${extension}`;
+
+  const { data, error } = await supabase.storage
+    .from(bucket)
+    .createSignedUploadUrl(storagePath);
+
+  if (error || !data?.token) {
+    return {
+      ok: false,
+      message: error?.message || "Could not prepare the photo upload."
+    };
+  }
+
+  const { data: publicData } = supabase.storage
+    .from(bucket)
+    .getPublicUrl(storagePath);
+
+  return {
+    ok: true,
+    bucket,
+    path: storagePath,
+    token: data.token,
+    publicUrl: publicData.publicUrl
+  };
+}
+
+export async function createPhotoRecordAction(input: CreatePhotoRecordInput) {
+  await requireOwner();
+
+  if (!input.image_url) {
+    return {
+      ok: false,
+      message: "Choose a photo file or paste an image URL before adding a photo."
+    };
+  }
+
+  const supabase = createSupabaseAdminClient();
+  const { error } = await supabase.from("gallery_photos").insert({
+    image_url: input.image_url,
+    storage_path: input.storage_path || null,
+    caption: input.caption || null,
+    category: input.category || null,
+    is_featured: Boolean(input.is_featured),
+    sort_order: Number.isFinite(input.sort_order) ? input.sort_order : 0
+  });
+
+  if (error) {
+    return {
+      ok: false,
+      message: `Photo record failed: ${error.message}`
+    };
+  }
+
+  revalidatePublicPaths();
+  revalidatePath("/admin/gallery");
+
+  return {
+    ok: true,
+    message: "Photo added."
+  };
+}
+
 export async function signOutAction() {
   const supabase = await createSupabaseServerClient();
   await supabase?.auth.signOut();
@@ -85,7 +199,7 @@ export async function updateSiteContentAction(formData: FormData) {
   await requireOwner();
 
   const supabase = createSupabaseAdminClient();
-  await supabase.from("site_content").upsert({
+  const { error } = await supabase.from("site_content").upsert({
     id: 1,
     hero_eyebrow: formText(formData, "hero_eyebrow"),
     hero_headline: formText(formData, "hero_headline"),
@@ -101,7 +215,13 @@ export async function updateSiteContentAction(formData: FormData) {
     contact_cta_text: formText(formData, "contact_cta_text")
   });
 
+  if (error) {
+    dashboardRedirect("homepage-error", `Homepage save failed: ${error.message}`);
+  }
+
   revalidatePublicPaths();
+  revalidatePath("/admin");
+  dashboardRedirect("homepage-saved");
 }
 
 export async function createServiceAction(formData: FormData) {

@@ -4,6 +4,21 @@ import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { Lead } from "@/lib/types";
 import { formatDateTime } from "@/lib/format";
 
+type AdminDashboardPageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+};
+
+const statusMessages: Record<string, { tone: "success" | "error"; text: string }> = {
+  "homepage-saved": {
+    tone: "success",
+    text: "Homepage content saved."
+  },
+  "homepage-error": {
+    tone: "error",
+    text: "Homepage content could not be saved."
+  }
+};
+
 async function countRows(table: string) {
   const supabase = createSupabaseAdminClient();
   const { count } = await supabase
@@ -13,7 +28,14 @@ async function countRows(table: string) {
   return count || 0;
 }
 
-export default async function AdminDashboardPage() {
+export default async function AdminDashboardPage({
+  searchParams
+}: AdminDashboardPageProps) {
+  const params = searchParams ? await searchParams : {};
+  const status = typeof params.status === "string" ? params.status : "";
+  const message = typeof params.message === "string" ? params.message : "";
+  const statusMessage = statusMessages[status];
+
   const supabase = createSupabaseAdminClient();
   const [siteContent, serviceCount, photoCount, testimonialCount, leadCount] =
     await Promise.all([
@@ -60,6 +82,19 @@ export default async function AdminDashboardPage() {
           </div>
         ))}
       </div>
+
+      {statusMessage ? (
+        <div
+          className={`rounded-[8px] border p-4 font-bold ${
+            statusMessage.tone === "success"
+              ? "border-[#b8e6c7] bg-[#e8f7ef] text-[#1f6f3d]"
+              : "border-[#fac8bd] bg-[#fff0ed] text-[#9a2d18]"
+          }`}
+        >
+          <p>{statusMessage.text}</p>
+          {message ? <p className="mt-2 font-normal">{message}</p> : null}
+        </div>
+      ) : null}
 
       <form
         action={updateSiteContentAction}

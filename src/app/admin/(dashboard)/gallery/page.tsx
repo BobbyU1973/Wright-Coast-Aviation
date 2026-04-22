@@ -1,9 +1,9 @@
 import Image from "next/image";
 import {
-  createPhotoAction,
   deletePhotoAction,
   updatePhotoAction
 } from "@/app/admin/(dashboard)/actions";
+import { GalleryUploadForm } from "@/app/admin/(dashboard)/gallery/gallery-upload-form";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { GalleryPhoto } from "@/lib/types";
 
@@ -63,55 +63,7 @@ export default async function AdminGalleryPage({
         </div>
       ) : null}
 
-      <form
-        action={createPhotoAction}
-        encType="multipart/form-data"
-        className="grid gap-4 rounded-[8px] border border-[var(--line)] bg-white p-6"
-      >
-        <h2 className="text-2xl font-bold">Add Photo</h2>
-        <p className="text-sm leading-6 text-[var(--muted)]">
-          Upload a JPG, PNG, or WebP image under 8 MB. Large phone photos may
-          need to be resized before upload.
-        </p>
-        <input
-          name="image_file"
-          type="file"
-          accept="image/*"
-          className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4 py-3"
-        />
-        <input
-          name="image_url"
-          placeholder="Or paste an image URL"
-          className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
-        />
-        <div className="grid gap-4 md:grid-cols-[1fr_220px_120px]">
-          <input
-            name="caption"
-            placeholder="Caption"
-            className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
-          />
-          <input
-            name="category"
-            placeholder="Category"
-            className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
-          />
-          <input
-            name="sort_order"
-            type="number"
-            placeholder="Sort"
-            className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
-          />
-        </div>
-        <label className="flex items-center gap-2 font-bold">
-          <input type="checkbox" name="is_featured" /> Featured
-        </label>
-        <button
-          type="submit"
-          className="focus-ring min-h-12 w-fit rounded-[8px] bg-[var(--navy)] px-5 py-3 font-bold text-white"
-        >
-          Add Photo
-        </button>
-      </form>
+      <GalleryUploadForm />
 
       <div className="grid gap-4 lg:grid-cols-2">
         {photos.map((photo) => (
