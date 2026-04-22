@@ -7,7 +7,32 @@ import {
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { GalleryPhoto } from "@/lib/types";
 
-export default async function AdminGalleryPage() {
+type AdminGalleryPageProps = {
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
+};
+
+const statusMessages: Record<string, { tone: "success" | "error"; text: string }> = {
+  added: { tone: "success", text: "Photo added." },
+  updated: { tone: "success", text: "Photo updated." },
+  deleted: { tone: "success", text: "Photo deleted." },
+  "missing-image": {
+    tone: "error",
+    text: "Choose a photo file or paste an image URL before adding a photo."
+  },
+  error: {
+    tone: "error",
+    text: "The photo could not be saved. Check the message below and try again."
+  }
+};
+
+export default async function AdminGalleryPage({
+  searchParams
+}: AdminGalleryPageProps) {
+  const params = searchParams ? await searchParams : {};
+  const status = typeof params.status === "string" ? params.status : "";
+  const message = typeof params.message === "string" ? params.message : "";
+  const statusMessage = statusMessages[status];
+
   const supabase = createSupabaseAdminClient();
   const { data } = await supabase
     .from("gallery_photos")
@@ -25,8 +50,22 @@ export default async function AdminGalleryPage() {
         </p>
       </div>
 
+      {statusMessage ? (
+        <div
+          className={`rounded-[8px] border p-4 font-bold ${
+            statusMessage.tone === "success"
+              ? "border-[#b8e6c7] bg-[#e8f7ef] text-[#1f6f3d]"
+              : "border-[#fac8bd] bg-[#fff0ed] text-[#9a2d18]"
+          }`}
+        >
+          <p>{statusMessage.text}</p>
+          {message ? <p className="mt-2 font-normal">{message}</p> : null}
+        </div>
+      ) : null}
+
       <form
         action={createPhotoAction}
+        encType="multipart/form-data"
         className="grid gap-4 rounded-[8px] border border-[var(--line)] bg-white p-6"
       >
         <h2 className="text-2xl font-bold">Add Photo</h2>
@@ -85,7 +124,11 @@ export default async function AdminGalleryPage() {
                 className="object-cover"
               />
             </div>
-            <form action={updatePhotoAction} className="mt-4 grid gap-4">
+            <form
+              action={updatePhotoAction}
+              encType="multipart/form-data"
+              className="mt-4 grid gap-4"
+            >
               <input type="hidden" name="id" value={photo.id} />
               <input
                 type="hidden"

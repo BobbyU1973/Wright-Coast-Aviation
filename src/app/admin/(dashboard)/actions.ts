@@ -28,6 +28,16 @@ function revalidatePublicPaths() {
   }
 }
 
+function galleryRedirect(status: string, message?: string): never {
+  const params = new URLSearchParams({ status });
+
+  if (message) {
+    params.set("message", message);
+  }
+
+  redirect(`/admin/gallery?${params.toString()}`);
+}
+
 async function uploadGalleryFile(formData: FormData, oldStoragePath?: string | null) {
   const file = formData.get("image_file");
 
@@ -160,14 +170,23 @@ export async function deleteServiceAction(formData: FormData) {
 
 export async function createPhotoAction(formData: FormData) {
   await requireOwner();
-  const uploaded = await uploadGalleryFile(formData);
+  let uploaded;
+
+  try {
+    uploaded = await uploadGalleryFile(formData);
+  } catch (error) {
+    galleryRedirect(
+      "error",
+      error instanceof Error ? error.message : "Photo upload failed."
+    );
+  }
 
   if (!uploaded.image_url) {
-    return;
+    galleryRedirect("missing-image");
   }
 
   const supabase = createSupabaseAdminClient();
-  await supabase.from("gallery_photos").insert({
+  const { error } = await supabase.from("gallery_photos").insert({
     image_url: uploaded.image_url,
     storage_path: uploaded.storage_path,
     caption: formNullableText(formData, "caption"),
@@ -176,7 +195,12 @@ export async function createPhotoAction(formData: FormData) {
     sort_order: formNumber(formData, "sort_order", 0)
   });
 
+  if (error) {
+    galleryRedirect("error", `Photo record failed: ${error.message}`);
+  }
+
   revalidatePublicPaths();
+  galleryRedirect("added");
 }
 
 export async function updatePhotoAction(formData: FormData) {
@@ -188,14 +212,23 @@ export async function updatePhotoAction(formData: FormData) {
   }
 
   const oldStoragePath = formNullableText(formData, "storage_path");
-  const uploaded = await uploadGalleryFile(formData, oldStoragePath);
+  let uploaded;
+
+  try {
+    uploaded = await uploadGalleryFile(formData, oldStoragePath);
+  } catch (error) {
+    galleryRedirect(
+      "error",
+      error instanceof Error ? error.message : "Photo upload failed."
+    );
+  }
 
   if (!uploaded.image_url) {
-    return;
+    galleryRedirect("missing-image");
   }
 
   const supabase = createSupabaseAdminClient();
-  await supabase
+  const { error } = await supabase
     .from("gallery_photos")
     .update({
       image_url: uploaded.image_url,
@@ -207,7 +240,12 @@ export async function updatePhotoAction(formData: FormData) {
     })
     .eq("id", id);
 
+  if (error) {
+    galleryRedirect("error", `Photo update failed: ${error.message}`);
+  }
+
   revalidatePublicPaths();
+  galleryRedirect("updated");
 }
 
 export async function deletePhotoAction(formData: FormData) {
@@ -220,7 +258,11 @@ export async function deletePhotoAction(formData: FormData) {
   }
 
   const supabase = createSupabaseAdminClient();
-  await supabase.from("gallery_photos").delete().eq("id", id);
+  const { error } = await supabase.from("gallery_photos").delete().eq("id", id);
+
+  if (error) {
+    galleryRedirect("error", `Photo delete failed: ${error.message}`);
+  }
 
   if (storagePath) {
     const bucket = process.env.SUPABASE_STORAGE_BUCKET || "gallery";
@@ -228,6 +270,7 @@ export async function deletePhotoAction(formData: FormData) {
   }
 
   revalidatePublicPaths();
+  galleryRedirect("deleted");
 }
 
 export async function createTestimonialAction(formData: FormData) {
