@@ -91,10 +91,10 @@ export default async function HomePage() {
       <section className="py-16">
         <div className="container-page">
           <div className="flex flex-col gap-6 md:flex-row md:items-end">
-            <SectionHeading
-              eyebrow="Testimonials"
-              title="The kind of story people tell long after vacation."
-            />
+              <SectionHeading
+                eyebrow="Reviews"
+                title="The kind of story people tell long after vacation."
+              />
           </div>
           <div className="mt-10 grid gap-5 lg:grid-cols-3">
             {testimonials.slice(0, 3).map((testimonial) => (

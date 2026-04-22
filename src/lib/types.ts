@@ -50,6 +50,15 @@ export type Testimonial = {
   created_at?: string;
 };
 
+export type FAQItem = {
+  id: string;
+  question: string;
+  answer: string;
+  active: boolean;
+  sort_order: number;
+  created_at?: string;
+};
+
 export type Lead = {
   id: string;
   name: string;

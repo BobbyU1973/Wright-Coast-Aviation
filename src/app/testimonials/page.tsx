@@ -4,9 +4,9 @@ import { getTestimonials } from "@/lib/cms";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Testimonials",
+  title: "Reviews",
   description:
-    "Read customer testimonials from Wright Coast Aviation intro flight and flight training clients.",
+    "Read customer reviews from Wright Coast Aviation intro flight and flight training clients.",
   path: "/testimonials"
 });
 
@@ -20,7 +20,7 @@ export default async function TestimonialsPage() {
       <section className="bg-white py-16">
         <div className="container-page max-w-4xl">
           <p className="text-sm font-bold uppercase text-[var(--sky)]">
-            Testimonials
+            Reviews
           </p>
           <h1 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">
             Stories from first-time flyers, vacation visitors, and student pilots.

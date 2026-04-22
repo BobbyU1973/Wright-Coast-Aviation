@@ -1,5 +1,6 @@
 import {
   defaultSiteContent,
+  sampleFaqs,
   samplePhotos,
   sampleServices,
   sampleTestimonials
@@ -7,6 +8,7 @@ import {
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import type {
   GalleryPhoto,
+  FAQItem,
   Service,
   SiteContent,
   Testimonial
@@ -128,4 +130,32 @@ export async function getTestimonials(options?: {
   }
 
   return data as Testimonial[];
+}
+
+export async function getFaqs(options?: {
+  includeInactive?: boolean;
+}): Promise<FAQItem[]> {
+  const supabase = await getPublicClient();
+
+  if (!supabase) {
+    return sampleFaqs.filter((faq) =>
+      options?.includeInactive ? true : faq.active
+    );
+  }
+
+  let query = supabase.from("faqs").select("*").order("sort_order");
+
+  if (!options?.includeInactive) {
+    query = query.eq("active", true);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    return sampleFaqs.filter((faq) =>
+      options?.includeInactive ? true : faq.active
+    );
+  }
+
+  return (data || []) as FAQItem[];
 }

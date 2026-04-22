@@ -31,7 +31,8 @@ export const navItems = [
 export const adminNavItems = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/gallery", label: "Photos" },
-  { href: "/admin/testimonials", label: "Testimonials" },
+  { href: "/admin/testimonials", label: "Reviews" },
+  { href: "/admin/faqs", label: "FAQs" },
   { href: "/admin/services", label: "Services" },
   { href: "/admin/leads", label: "Leads" }
 ];

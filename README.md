@@ -14,10 +14,10 @@ and a FlightCircle booking link.
 
 ## Features
 
-- Fun responsive public site with Home, Reserve Your Spot, Gallery,
-  Testimonials, FAQ, Contact, Privacy, Terms, and Accessibility pages.
+- Fun responsive public site with Home, Reserve Your Spot, Gallery, Reviews,
+  FAQ, Contact, Privacy, Terms, and Accessibility pages.
 - Owner dashboard protected by Supabase Auth.
-- Dashboard CRUD for gallery photos, testimonials, services, lead status,
+- Dashboard CRUD for gallery photos, reviews, FAQs, services, lead status,
   homepage copy, and FlightCircle URL.
 - Book Now buttons link directly to FlightCircle for booking and passenger
   information.
@@ -79,6 +79,7 @@ The schema creates:
 - `services`
 - `gallery_photos`
 - `testimonials`
+- `faqs`
 - `leads`
 - public `gallery` storage bucket
 
@@ -93,7 +94,8 @@ Open `/admin/login`, then sign in with the Supabase Auth user listed in
 Owner actions:
 
 - Add Photo
-- Add Testimonial
+- Add Review
+- Add FAQ
 - Add Service
 - View and update leads
 - Edit homepage copy
@@ -132,8 +134,8 @@ Most business-specific content lives in:
 - `src/lib/site.ts`
 - `src/lib/seo.ts`
 - `src/lib/sample-data.ts`
-- Supabase `site_content`, `services`, `gallery_photos`, `testimonials`, and
-  `leads`
+- Supabase `site_content`, `services`, `gallery_photos`, `testimonials`,
+  `faqs`, and `leads`
 - `public/brand`
 - `public/images`
 

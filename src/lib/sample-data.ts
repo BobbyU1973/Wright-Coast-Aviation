@@ -1,4 +1,10 @@
-import type { GalleryPhoto, Service, SiteContent, Testimonial } from "@/lib/types";
+import type {
+  FAQItem,
+  GalleryPhoto,
+  Service,
+  SiteContent,
+  Testimonial
+} from "@/lib/types";
 
 export const defaultSiteContent: SiteContent = {
   id: 1,
@@ -165,5 +171,40 @@ export const sampleTestimonials: Testimonial[] = [
     is_featured: true,
     active: true,
     sort_order: 3
+  }
+];
+
+export const sampleFaqs: FAQItem[] = [
+  {
+    id: "faq-1",
+    question: "Do I need flight experience?",
+    answer:
+      "No experience is needed. Intro flights are designed for first-time flyers and are guided by a Certified Flight Instructor.",
+    active: true,
+    sort_order: 1
+  },
+  {
+    id: "faq-2",
+    question: "Can I really take the controls?",
+    answer:
+      "Yes, when conditions allow. Your instructor will guide you from the pilot seat so you can feel what flying is like.",
+    active: true,
+    sort_order: 2
+  },
+  {
+    id: "faq-3",
+    question: "Why fly while visiting the Outer Banks?",
+    answer:
+      "The Outer Banks is the Birthplace of Flight, full of water, sky, history, and wide-open views. An intro flight gives visitors a vacation memory they cannot get anywhere else.",
+    active: true,
+    sort_order: 3
+  },
+  {
+    id: "faq-4",
+    question: "Do you offer training for locals?",
+    answer:
+      "Yes. Wright Coast Aviation offers flight training for full-time and part-time residents who want to train to be a pilot in the Manteo area.",
+    active: true,
+    sort_order: 4
   }
 ];

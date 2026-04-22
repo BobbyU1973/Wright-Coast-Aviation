@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FAQ } from "@/components/site/faq";
+import { getFaqs } from "@/lib/cms";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -9,7 +10,11 @@ export const metadata: Metadata = createPageMetadata({
   path: "/faq"
 });
 
-export default function FAQPage() {
+export const revalidate = 60;
+
+export default async function FAQPage() {
+  const faqs = await getFaqs();
+
   return (
     <main>
       <section className="bg-white py-16">
@@ -29,7 +34,7 @@ export default function FAQPage() {
 
       <section className="py-16">
         <div className="container-page max-w-4xl">
-          <FAQ />
+          <FAQ faqs={faqs} />
         </div>
       </section>
     </main>

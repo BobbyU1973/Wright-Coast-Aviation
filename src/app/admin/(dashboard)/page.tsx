@@ -37,12 +37,13 @@ export default async function AdminDashboardPage({
   const statusMessage = statusMessages[status];
 
   const supabase = createSupabaseAdminClient();
-  const [siteContent, serviceCount, photoCount, testimonialCount, leadCount] =
+  const [siteContent, serviceCount, photoCount, reviewCount, faqCount, leadCount] =
     await Promise.all([
       getSiteContent(),
       countRows("services"),
       countRows("gallery_photos"),
       countRows("testimonials"),
+      countRows("faqs"),
       countRows("leads")
     ]);
   const { data: recentLeads } = await supabase
@@ -59,7 +60,7 @@ export default async function AdminDashboardPage({
         </p>
         <h1 className="mt-2 text-3xl font-bold">Manage the business website</h1>
         <p className="mt-3 text-[var(--muted)]">
-          Edit homepage content, photos, testimonials, services, FlightCircle
+          Edit homepage content, photos, reviews, FAQs, services, FlightCircle
           booking details, and contact leads from one place.
         </p>
       </div>
@@ -68,7 +69,8 @@ export default async function AdminDashboardPage({
         {[
           ["Services", serviceCount],
           ["Photos", photoCount],
-          ["Testimonials", testimonialCount],
+          ["Reviews", reviewCount],
+          ["FAQs", faqCount],
           ["Leads", leadCount]
         ].map(([label, value]) => (
           <div

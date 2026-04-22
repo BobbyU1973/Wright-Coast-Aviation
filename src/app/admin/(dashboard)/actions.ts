@@ -38,6 +38,16 @@ function galleryRedirect(status: string, message?: string): never {
   redirect(`/admin/gallery?${params.toString()}`);
 }
 
+function faqRedirect(status: string, message?: string): never {
+  const params = new URLSearchParams({ status });
+
+  if (message) {
+    params.set("message", message);
+  }
+
+  redirect(`/admin/faqs?${params.toString()}`);
+}
+
 function dashboardRedirect(status: string, message?: string): never {
   const params = new URLSearchParams({ status });
 
@@ -454,6 +464,83 @@ export async function deleteTestimonialAction(formData: FormData) {
   const supabase = createSupabaseAdminClient();
   await supabase.from("testimonials").delete().eq("id", id);
   revalidatePublicPaths();
+}
+
+export async function createFaqAction(formData: FormData) {
+  await requireOwner();
+  const question = formText(formData, "question");
+  const answer = formText(formData, "answer");
+
+  if (!question || !answer) {
+    faqRedirect("missing");
+  }
+
+  const supabase = createSupabaseAdminClient();
+  const { error } = await supabase.from("faqs").insert({
+    question,
+    answer,
+    active: formBoolean(formData, "active"),
+    sort_order: formNumber(formData, "sort_order", 0)
+  });
+
+  if (error) {
+    faqRedirect("error", `FAQ add failed: ${error.message}`);
+  }
+
+  revalidatePublicPaths();
+  revalidatePath("/admin/faqs");
+  faqRedirect("added");
+}
+
+export async function updateFaqAction(formData: FormData) {
+  await requireOwner();
+  const id = formText(formData, "id");
+  const question = formText(formData, "question");
+  const answer = formText(formData, "answer");
+
+  if (!id || !question || !answer) {
+    faqRedirect("missing");
+  }
+
+  const supabase = createSupabaseAdminClient();
+  const { error } = await supabase
+    .from("faqs")
+    .update({
+      question,
+      answer,
+      active: formBoolean(formData, "active"),
+      sort_order: formNumber(formData, "sort_order", 0),
+      updated_at: new Date().toISOString()
+    })
+    .eq("id", id);
+
+  if (error) {
+    faqRedirect("error", `FAQ save failed: ${error.message}`);
+  }
+
+  revalidatePublicPaths();
+  revalidatePath("/admin/faqs");
+  faqRedirect("updated");
+}
+
+export async function deleteFaqAction(formData: FormData) {
+  await requireOwner();
+  const id = formText(formData, "id");
+
+  if (!id) {
+    faqRedirect("missing");
+  }
+
+  const supabase = createSupabaseAdminClient();
+  const { error } = await supabase.from("faqs").delete().eq("id", id);
+
+  if (error) {
+    faqRedirect("error", `FAQ delete failed: ${error.message}`);
+  }
+
+  revalidatePublicPaths();
+  revalidatePath("/admin/faqs");
+  faqRedirect("deleted");
 }
 
 export async function updateLeadStatusAction(formData: FormData) {
