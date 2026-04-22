@@ -69,6 +69,10 @@ export default async function AdminGalleryPage({
         className="grid gap-4 rounded-[8px] border border-[var(--line)] bg-white p-6"
       >
         <h2 className="text-2xl font-bold">Add Photo</h2>
+        <p className="text-sm leading-6 text-[var(--muted)]">
+          Upload a JPG, PNG, or WebP image under 8 MB. Large phone photos may
+          need to be resized before upload.
+        </p>
         <input
           name="image_file"
           type="file"
@@ -141,6 +145,9 @@ export default async function AdminGalleryPage({
                 accept="image/*"
                 className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4 py-3"
               />
+              <p className="text-sm text-[var(--muted)]">
+                Optional replacement image. Keep uploads under 8 MB.
+              </p>
               <input
                 name="image_url"
                 defaultValue={photo.image_url}
