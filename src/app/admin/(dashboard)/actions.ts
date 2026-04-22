@@ -149,6 +149,7 @@ export async function prepareGalleryUploadAction(input: PrepareGalleryUploadInpu
     bucket,
     path: storagePath,
     token: data.token,
+    signedUrl: data.signedUrl,
     publicUrl: publicData.publicUrl
   };
 }

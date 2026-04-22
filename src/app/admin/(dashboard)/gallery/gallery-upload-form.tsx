@@ -6,7 +6,6 @@ import {
   createPhotoRecordAction,
   prepareGalleryUploadAction
 } from "@/app/admin/(dashboard)/actions";
-import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type UploadStatus = {
   tone: "success" | "error" | "info";
@@ -68,9 +67,8 @@ export function GalleryUploadForm() {
 
           if (
             !prepared.ok ||
-            !prepared.bucket ||
             !prepared.path ||
-            !prepared.token ||
+            !prepared.signedUrl ||
             !prepared.publicUrl
           ) {
             setStatus({
@@ -82,18 +80,25 @@ export function GalleryUploadForm() {
 
           setStatus({ tone: "info", text: "Uploading photo to storage..." });
 
-          const supabase = createSupabaseBrowserClient();
-          const { error: uploadError } = await supabase.storage
-            .from(prepared.bucket)
-            .uploadToSignedUrl(prepared.path, prepared.token, file, {
-              contentType: file.type || "image/jpeg",
-              cacheControl: "3600"
-            });
+          const uploadData = new FormData();
+          uploadData.append("cacheControl", "3600");
+          uploadData.append("", file);
 
-          if (uploadError) {
+          const uploadResponse = await fetch(prepared.signedUrl, {
+            method: "PUT",
+            headers: {
+              "x-upsert": "false"
+            },
+            body: uploadData
+          });
+
+          if (!uploadResponse.ok) {
+            const uploadError = await uploadResponse.text();
             setStatus({
               tone: "error",
-              text: `Photo upload failed: ${uploadError.message}`
+              text: `Photo upload failed: ${
+                uploadError || uploadResponse.statusText
+              }`
             });
             return;
           }
