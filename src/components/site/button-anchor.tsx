@@ -9,7 +9,7 @@ type ButtonAnchorProps = {
 
 const variantStyles = {
   primary:
-    "bg-[var(--book)] text-[var(--charcoal)] hover:bg-[var(--book-hover)] border-[var(--book)]",
+    "bg-[var(--book)] text-[var(--book-text)] hover:bg-[var(--book-hover)] border-[var(--book)]",
   secondary:
     "bg-white text-[var(--charcoal)] hover:bg-[#edf8ff] border-white",
   dark:

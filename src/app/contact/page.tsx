@@ -129,7 +129,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
 
             <button
               type="submit"
-              className="focus-ring min-h-12 rounded-[8px] bg-[var(--book)] px-5 py-3 font-bold text-[var(--charcoal)] transition hover:bg-[var(--book-hover)]"
+              className="focus-ring min-h-12 rounded-[8px] bg-[var(--book)] px-5 py-3 font-bold text-[var(--book-text)] transition hover:bg-[var(--book-hover)]"
             >
               Send Inquiry
             </button>
@@ -158,13 +158,13 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               </dl>
               <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
                 <a
-                  className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold text-[var(--charcoal)] hover:bg-[var(--book-hover)]"
+                  className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold text-[var(--book-text)] hover:bg-[var(--book-hover)]"
                   href={`tel:${siteConfig.phoneHref}`}
                 >
                   Call {siteConfig.phone}
                 </a>
                 <a
-                  className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold text-[var(--charcoal)] hover:bg-[var(--book-hover)]"
+                  className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold text-[var(--book-text)] hover:bg-[var(--book-hover)]"
                   href={`sms:${siteConfig.phoneHref}`}
                 >
                   Text Us
@@ -184,7 +184,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                   href={directionsUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="focus-ring inline-flex min-h-11 w-full items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold text-[var(--charcoal)] hover:bg-[var(--book-hover)]"
+                  className="focus-ring inline-flex min-h-11 w-full items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold text-[var(--book-text)] hover:bg-[var(--book-hover)]"
                 >
                   Get Directions to Dare County Regional Airport
                 </a>

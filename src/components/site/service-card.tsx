@@ -28,7 +28,7 @@ export function ServiceCard({ service }: { service: Service }) {
           href={siteConfig.flightCircleUrl}
           target="_blank"
           rel="noreferrer"
-          className="focus-ring inline-flex w-fit rounded-[8px] border border-[var(--book)] bg-[var(--book)] px-4 py-2 text-sm font-bold text-[var(--charcoal)] hover:bg-[var(--book-hover)]"
+          className="focus-ring inline-flex w-fit rounded-[8px] border border-[var(--book)] bg-[var(--book)] px-4 py-2 text-sm font-bold text-[var(--book-text)] hover:bg-[var(--book-hover)]"
         >
           Book Now
         </a>
