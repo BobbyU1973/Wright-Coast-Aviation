@@ -138,16 +138,6 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
           <aside className="grid min-w-0 gap-5">
             <div className="rounded-[8px] border border-[var(--line)] bg-white p-6">
               <h2 className="text-2xl font-bold">Business contact</h2>
-              <dl className="mt-5 grid gap-4 text-[var(--muted)]">
-                <div>
-                  <dt className="font-bold text-[var(--foreground)]">Email</dt>
-                  <dd>
-                    <a className="focus-ring hover:text-[var(--navy)]" href={`mailto:${siteConfig.contactEmail}`}>
-                      {siteConfig.contactEmail}
-                    </a>
-                  </dd>
-                </div>
-              </dl>
               <div className="mt-6 grid gap-3">
                 <a
                   className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold !text-black hover:bg-[var(--book-hover)]"
