@@ -23,8 +23,8 @@ export default async function AdminTestimonialsPage() {
       <div className="rounded-[8px] border border-[var(--line)] bg-white p-6">
         <h1 className="text-3xl font-bold">Reviews</h1>
         <p className="mt-2 text-[var(--muted)]">
-          Add customer reviews, set star ratings, feature favorites on the home
-          page, and hide drafts without deleting them.
+          Add customer comments, feature favorites on the home page, and hide
+          drafts without deleting them.
         </p>
       </div>
 
@@ -33,7 +33,7 @@ export default async function AdminTestimonialsPage() {
         className="grid gap-4 rounded-[8px] border border-[var(--line)] bg-white p-6"
       >
         <h2 className="text-2xl font-bold">Add Review</h2>
-        <div className="grid gap-4 md:grid-cols-[1fr_1fr_120px_120px]">
+        <div className="grid gap-4 md:grid-cols-[1fr_1fr_120px]">
           <label className="grid gap-2">
             <span className="font-bold">Reviewer name</span>
             <FieldHelp>Shown under the review on the public site.</FieldHelp>
@@ -50,18 +50,6 @@ export default async function AdminTestimonialsPage() {
             <input
               name="location"
               placeholder="Example: OBX Vacation"
-              className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
-            />
-          </label>
-          <label className="grid gap-2">
-            <span className="font-bold">Star rating</span>
-            <FieldHelp>1 to 5 stars. Most reviews will use 5.</FieldHelp>
-            <input
-              name="rating"
-              type="number"
-              min="1"
-              max="5"
-              defaultValue="5"
               className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
             />
           </label>
@@ -128,7 +116,7 @@ export default async function AdminTestimonialsPage() {
           >
             <form action={updateTestimonialAction} className="grid gap-4">
               <input type="hidden" name="id" value={testimonial.id} />
-              <div className="grid gap-4 md:grid-cols-[1fr_1fr_120px_120px]">
+              <div className="grid gap-4 md:grid-cols-[1fr_1fr_120px]">
                 <label className="grid gap-2">
                   <span className="font-bold">Reviewer name</span>
                   <FieldHelp>Shown under the review on the public site.</FieldHelp>
@@ -145,18 +133,6 @@ export default async function AdminTestimonialsPage() {
                   <input
                     name="location"
                     defaultValue={testimonial.location || ""}
-                    className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
-                  />
-                </label>
-                <label className="grid gap-2">
-                  <span className="font-bold">Star rating</span>
-                  <FieldHelp>1 to 5 stars.</FieldHelp>
-                  <input
-                    name="rating"
-                    type="number"
-                    min="1"
-                    max="5"
-                    defaultValue={testimonial.rating || 5}
                     className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
                   />
                 </label>

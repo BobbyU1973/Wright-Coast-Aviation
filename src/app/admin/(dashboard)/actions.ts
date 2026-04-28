@@ -417,7 +417,7 @@ export async function createTestimonialAction(formData: FormData) {
   await supabase.from("testimonials").insert({
     customer_name: customerName,
     location: formNullableText(formData, "location"),
-    rating: formNumber(formData, "rating", 5),
+    rating: null,
     quote,
     is_featured: formBoolean(formData, "is_featured"),
     active: formBoolean(formData, "active"),
@@ -441,7 +441,7 @@ export async function updateTestimonialAction(formData: FormData) {
     .update({
       customer_name: formText(formData, "customer_name"),
       location: formNullableText(formData, "location"),
-      rating: formNumber(formData, "rating", 5),
+      rating: null,
       quote: formText(formData, "quote"),
       is_featured: formBoolean(formData, "is_featured"),
       active: formBoolean(formData, "active"),

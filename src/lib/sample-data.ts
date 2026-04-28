@@ -143,7 +143,7 @@ export const sampleTestimonials: Testimonial[] = [
     id: "review-1",
     customer_name: "First-Time Flyer",
     location: "Outer Banks Vacation",
-    rating: 5,
+    rating: null,
     quote:
       "I came in nervous and left smiling. Taking the controls over the coast was the highlight of our trip.",
     is_featured: true,
@@ -154,7 +154,7 @@ export const sampleTestimonials: Testimonial[] = [
     id: "review-2",
     customer_name: "Vacation Visitor",
     location: "Manteo, NC",
-    rating: 5,
+    rating: null,
     quote:
       "Such a fun thing to do while visiting the Outer Banks. Easy to book, friendly instructor, unforgettable views.",
     is_featured: true,
@@ -165,7 +165,7 @@ export const sampleTestimonials: Testimonial[] = [
     id: "review-3",
     customer_name: "Student Pilot",
     location: "North Carolina",
-    rating: 5,
+    rating: null,
     quote:
       "The intro flight made flight training feel possible. It was hands-on, relaxed, and exciting from start to finish.",
     is_featured: true,
