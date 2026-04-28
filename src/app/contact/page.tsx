@@ -147,16 +147,14 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                     </a>
                   </dd>
                 </div>
-                <div>
-                  <dt className="font-bold text-[var(--foreground)]">Phone</dt>
-                  <dd>
-                    <a className="focus-ring hover:text-[var(--navy)]" href={`tel:${siteConfig.phoneHref}`}>
-                      {siteConfig.phone}
-                    </a>
-                  </dd>
-                </div>
               </dl>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="mt-6 grid gap-3">
+                <a
+                  className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold !text-black hover:bg-[var(--book-hover)]"
+                  href={`mailto:${siteConfig.contactEmail}`}
+                >
+                  Email {siteConfig.contactEmail}
+                </a>
                 <a
                   className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold !text-black hover:bg-[var(--book-hover)]"
                   href={`tel:${siteConfig.phoneHref}`}
