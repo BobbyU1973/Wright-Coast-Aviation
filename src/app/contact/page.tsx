@@ -143,7 +143,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                   className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold !text-black hover:bg-[var(--book-hover)]"
                   href={`mailto:${siteConfig.contactEmail}`}
                 >
-                  Email {siteConfig.contactEmail}
+                  Email Us
                 </a>
                 <a
                   className="focus-ring inline-flex min-h-11 items-center justify-center rounded-[8px] bg-[var(--book)] px-4 py-2 text-sm font-bold !text-black hover:bg-[var(--book-hover)]"
