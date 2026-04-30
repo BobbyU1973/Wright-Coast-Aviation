@@ -13,6 +13,17 @@ export const siteConfig = {
   location:
     process.env.NEXT_PUBLIC_LOCATION_LABEL ||
     "Dare County Regional Airport, Manteo, NC",
+  address: {
+    streetAddress: "410 Airport Road",
+    addressLocality: "Manteo",
+    addressRegion: "NC",
+    postalCode: "27954",
+    addressCountry: "US"
+  },
+  geo: {
+    latitude: 35.9189828,
+    longitude: -75.6955358
+  },
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61562992080545",
     instagram: "https://www.instagram.com/wrightcoastaviation/"

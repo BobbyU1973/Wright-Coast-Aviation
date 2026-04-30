@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { FAQ } from "@/components/site/faq";
+import { JsonLd } from "@/components/site/json-ld";
 import { getFaqs } from "@/lib/cms";
-import { createPageMetadata } from "@/lib/seo";
+import { createPageMetadata, faqJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Frequently Asked Questions",
@@ -17,6 +18,7 @@ export default async function FAQPage() {
 
   return (
     <main>
+      <JsonLd data={faqJsonLd(faqs)} />
       <section className="bg-white py-16">
         <div className="container-page max-w-4xl">
           <p className="text-sm font-bold uppercase text-[var(--sky)]">
