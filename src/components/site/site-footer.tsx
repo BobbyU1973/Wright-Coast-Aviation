@@ -12,8 +12,19 @@ const legalLinks = [
 ];
 
 const socialLinks = [
-  { href: siteConfig.social.facebook, label: "Facebook", Icon: FacebookIcon },
-  { href: siteConfig.social.instagram, label: "Instagram", Icon: InstagramIcon }
+  {
+    href: siteConfig.social.facebook,
+    label: "Facebook",
+    Icon: FacebookIcon,
+    className: "bg-[#1877f2] hover:bg-[#0f67da]"
+  },
+  {
+    href: siteConfig.social.instagram,
+    label: "Instagram",
+    Icon: InstagramIcon,
+    className:
+      "bg-[linear-gradient(135deg,#f58529_0%,#feda77_22%,#dd2a7b_48%,#8134af_73%,#515bd4_100%)] hover:brightness-110"
+  }
 ];
 
 function FacebookIcon() {
@@ -145,11 +156,13 @@ export function SiteFooter() {
 function SocialLink({
   href,
   label,
-  Icon
+  Icon,
+  className
 }: {
   href: string;
   label: string;
   Icon: () => React.ReactElement;
+  className: string;
 }) {
   return (
     <a
@@ -157,7 +170,7 @@ function SocialLink({
       target="_blank"
       rel="noreferrer"
       aria-label={`Visit Wright Coast Aviation on ${label}`}
-      className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-[8px] border border-white/18 bg-white/8 text-white transition hover:bg-white/16"
+      className={`focus-ring inline-flex h-10 w-10 items-center justify-center rounded-[8px] text-white shadow-[0_10px_24px_rgba(0,0,0,0.2)] transition ${className}`}
     >
       <Icon />
     </a>
