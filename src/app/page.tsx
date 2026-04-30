@@ -9,8 +9,7 @@ import {
   getSiteContent,
   getTestimonials
 } from "@/lib/cms";
-import { siteConfig } from "@/lib/site";
-import { breadcrumbJsonLd, serviceJsonLd } from "@/lib/seo";
+import { serviceJsonLd } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -23,7 +22,6 @@ export default async function HomePage() {
 
   return (
     <main>
-      <JsonLd data={breadcrumbJsonLd([{ name: siteConfig.name, path: "/" }])} />
       <JsonLd data={serviceJsonLd(services)} />
 
       <section className="relative min-h-[78svh] overflow-hidden">
