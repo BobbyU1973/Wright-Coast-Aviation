@@ -14,8 +14,8 @@ export const siteConfig = {
     process.env.NEXT_PUBLIC_LOCATION_LABEL ||
     "Dare County Regional Airport, Manteo, NC",
   social: {
-    facebook: "https://www.facebook.com/",
-    instagram: "https://www.instagram.com/"
+    facebook: "https://www.facebook.com/profile.php?id=61562992080545",
+    instagram: "https://www.instagram.com/wrightcoastaviation/"
   }
 };
 

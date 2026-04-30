@@ -11,6 +11,11 @@ const legalLinks = [
   { href: "/admin/login", label: "Login" }
 ];
 
+const socialLinks = [
+  { href: siteConfig.social.facebook, label: "Facebook", icon: "f" },
+  { href: siteConfig.social.instagram, label: "Instagram", icon: "IG" }
+];
+
 export function SiteFooter() {
   return (
     <footer className="bg-[var(--charcoal)] text-white">
@@ -78,6 +83,20 @@ export function SiteFooter() {
             </li>
             <li>{siteConfig.location}</li>
           </ul>
+          <div className="mt-5 flex gap-3">
+            {socialLinks.map((item) => (
+              <a
+                key={item.label}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit Wright Coast Aviation on ${item.label}`}
+                className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-[8px] border border-white/18 bg-white/8 text-sm font-bold text-white hover:bg-white/16"
+              >
+                {item.icon}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 
