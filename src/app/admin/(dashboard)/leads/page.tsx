@@ -2,6 +2,7 @@ import { updateLeadStatusAction } from "@/app/admin/(dashboard)/actions";
 import { formatDateTime } from "@/lib/format";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { Lead } from "@/lib/types";
+import { DeleteLeadButton } from "./delete-lead-button";
 
 export default async function AdminLeadsPage() {
   const supabase = createSupabaseAdminClient();
@@ -16,7 +17,8 @@ export default async function AdminLeadsPage() {
       <div className="rounded-[8px] border border-[var(--line)] bg-white p-6">
         <h1 className="text-3xl font-bold">Contact Leads</h1>
         <p className="mt-2 text-[var(--muted)]">
-          View incoming inquiries and mark them new, contacted, or closed.
+          View incoming inquiries, mark them new, contacted, or closed, and
+          delete old emails when they are no longer needed.
         </p>
       </div>
 
@@ -52,27 +54,30 @@ export default async function AdminLeadsPage() {
                   {lead.message}
                 </p>
               </div>
-              <form action={updateLeadStatusAction} className="grid h-fit gap-3">
-                <input type="hidden" name="id" value={lead.id} />
-                <label className="grid gap-2">
-                  <span className="text-sm font-bold">Status</span>
-                  <select
-                    name="status"
-                    defaultValue={lead.status}
-                    className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
+              <div className="grid h-fit gap-4">
+                <form action={updateLeadStatusAction} className="grid gap-3">
+                  <input type="hidden" name="id" value={lead.id} />
+                  <label className="grid gap-2">
+                    <span className="text-sm font-bold">Status</span>
+                    <select
+                      name="status"
+                      defaultValue={lead.status}
+                      className="focus-ring min-h-12 rounded-[8px] border border-[var(--line)] px-4"
+                    >
+                      <option value="new">New</option>
+                      <option value="contacted">Contacted</option>
+                      <option value="closed">Closed</option>
+                    </select>
+                  </label>
+                  <button
+                    type="submit"
+                    className="focus-ring min-h-11 rounded-[8px] bg-[var(--navy)] px-4 py-2 text-sm font-bold text-white"
                   >
-                    <option value="new">New</option>
-                    <option value="contacted">Contacted</option>
-                    <option value="closed">Closed</option>
-                  </select>
-                </label>
-                <button
-                  type="submit"
-                  className="focus-ring min-h-11 rounded-[8px] bg-[var(--navy)] px-4 py-2 text-sm font-bold text-white"
-                >
-                  Save Status
-                </button>
-              </form>
+                    Save Status
+                  </button>
+                </form>
+                <DeleteLeadButton leadId={lead.id} leadName={lead.name} />
+              </div>
             </div>
           </article>
         ))}

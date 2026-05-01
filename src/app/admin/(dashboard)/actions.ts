@@ -557,3 +557,17 @@ export async function updateLeadStatusAction(formData: FormData) {
   revalidatePath("/admin/leads");
   revalidatePath("/admin");
 }
+
+export async function deleteLeadAction(formData: FormData) {
+  await requireOwner();
+  const id = formText(formData, "id");
+
+  if (!id) {
+    return;
+  }
+
+  const supabase = createSupabaseAdminClient();
+  await supabase.from("leads").delete().eq("id", id);
+  revalidatePath("/admin/leads");
+  revalidatePath("/admin");
+}
