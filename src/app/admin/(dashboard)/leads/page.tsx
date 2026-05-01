@@ -3,6 +3,7 @@ import { formatDateTime } from "@/lib/format";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import type { Lead } from "@/lib/types";
 import { DeleteLeadButton } from "./delete-lead-button";
+import { LeadEmailActions } from "./lead-email-actions";
 
 export default async function AdminLeadsPage() {
   const supabase = createSupabaseAdminClient();
@@ -17,8 +18,9 @@ export default async function AdminLeadsPage() {
       <div className="rounded-[8px] border border-[var(--line)] bg-white p-6">
         <h1 className="text-3xl font-bold">Contact Leads</h1>
         <p className="mt-2 text-[var(--muted)]">
-          View incoming inquiries, mark them new, contacted, or closed, and
-          delete old emails when they are no longer needed.
+          View incoming inquiries, reply in Gmail, copy customer email
+          addresses, mark status, and delete old emails when they are no longer
+          needed.
         </p>
       </div>
 
@@ -55,6 +57,14 @@ export default async function AdminLeadsPage() {
                 </p>
               </div>
               <div className="grid h-fit gap-4">
+                <LeadEmailActions
+                  name={lead.name}
+                  email={lead.email}
+                  phone={lead.phone}
+                  serviceInterest={lead.service_interest}
+                  message={lead.message}
+                  createdAt={lead.created_at}
+                />
                 <form action={updateLeadStatusAction} className="grid gap-3">
                   <input type="hidden" name="id" value={lead.id} />
                   <label className="grid gap-2">
