@@ -24,6 +24,12 @@ const socialLinks = [
     Icon: InstagramIcon,
     className:
       "bg-[linear-gradient(135deg,#f58529_0%,#feda77_22%,#dd2a7b_48%,#8134af_73%,#515bd4_100%)] hover:brightness-110"
+  },
+  {
+    href: siteConfig.social.tiktok,
+    label: "TikTok",
+    Icon: TikTokIcon,
+    className: "bg-white hover:bg-white/90"
   }
 ];
 
@@ -59,6 +65,24 @@ function InstagramIcon() {
       />
       <circle cx="12" cy="12" r="3.25" stroke="currentColor" strokeWidth="2" />
       <circle cx="16.55" cy="7.45" r="1.05" fill="currentColor" />
+    </svg>
+  );
+}
+
+function TikTokIcon() {
+  const notePath =
+    "M13.42 3.3v10.04a4.38 4.38 0 1 1-3.85-4.34v2.7a1.71 1.71 0 1 0 1.11 1.6V2.9h2.74c.26 1.6 1.43 2.92 3 3.36v2.72a7.05 7.05 0 0 1-3-.74Z";
+
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+    >
+      <path d={notePath} fill="#25F4EE" transform="translate(-0.7 0.55)" />
+      <path d={notePath} fill="#FE2C55" transform="translate(0.65 -0.45)" />
+      <path d={notePath} fill="#050505" />
     </svg>
   );
 }
