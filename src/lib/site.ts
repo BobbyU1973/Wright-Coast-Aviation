@@ -24,6 +24,19 @@ export const siteConfig = {
     latitude: 35.9189828,
     longitude: -75.6955358
   },
+  serviceAreas: [
+    "Manteo",
+    "Nags Head",
+    "Kill Devil Hills",
+    "Kitty Hawk",
+    "Duck",
+    "Southern Shores",
+    "Ocracoke",
+    "Hatteras Island",
+    "Roanoke Island",
+    "Dare County",
+    "Outer Banks"
+  ],
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61562992080545",
     instagram: "https://www.instagram.com/wrightcoastaviation/",
@@ -37,6 +50,7 @@ export const navItems = [
   { href: "/gallery", label: "Gallery" },
   { href: "/testimonials", label: "Reviews" },
   { href: "/faq", label: "FAQ" },
+  { href: "/resources", label: "Resources" },
   { href: "/contact", label: "Contact" }
 ];
 

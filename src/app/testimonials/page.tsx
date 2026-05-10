@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/site/json-ld";
 import { TestimonialCard } from "@/components/site/testimonial-card";
 import { getTestimonials } from "@/lib/cms";
-import { createPageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, createPageMetadata, webPageJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Reviews",
@@ -17,6 +18,21 @@ export default async function TestimonialsPage() {
 
   return (
     <main>
+      <JsonLd
+        data={webPageJsonLd({
+          title: "Reviews",
+          description:
+            "Read customer reviews from Wright Coast Aviation intro flight and flight training clients.",
+          path: "/testimonials",
+          type: "CollectionPage"
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Reviews", path: "/testimonials" }
+        ])}
+      />
       <section className="bg-white py-16">
         <div className="container-page max-w-4xl">
           <p className="text-sm font-bold uppercase text-[var(--sky)]">

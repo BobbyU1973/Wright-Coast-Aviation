@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { createLeadAction } from "@/app/contact/actions";
+import { JsonLd } from "@/components/site/json-ld";
 import { getServices } from "@/lib/cms";
-import { createPageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, createPageMetadata, webPageJsonLd } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = createPageMetadata({
@@ -29,6 +30,21 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
 
   return (
     <main>
+      <JsonLd
+        data={webPageJsonLd({
+          title: "Contact",
+          description:
+            "Contact Wright Coast Aviation with questions about Outer Banks intro flights and flight training.",
+          path: "/contact",
+          type: "ContactPage"
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" }
+        ])}
+      />
       <section className="bg-white py-16">
         <div className="container-page max-w-4xl">
           <p className="text-sm font-bold uppercase text-[var(--sky)]">

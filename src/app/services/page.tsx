@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/site/json-ld";
 import { ServiceCard } from "@/components/site/service-card";
 import { getServices } from "@/lib/cms";
-import { breadcrumbJsonLd, createPageMetadata, serviceJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  createPageMetadata,
+  serviceJsonLd,
+  webPageJsonLd
+} from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Services",
@@ -22,6 +27,15 @@ export default async function ServicesPage() {
 
   return (
     <main>
+      <JsonLd
+        data={webPageJsonLd({
+          title: "Services",
+          description:
+            "Book Outer Banks Intro Flight Experiences and Flight Training in the Birthplace of Flight with Wright Coast Aviation in Manteo, NC.",
+          path: "/services",
+          type: "CollectionPage"
+        })}
+      />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: "Home", path: "/" },

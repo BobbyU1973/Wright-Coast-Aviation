@@ -23,10 +23,16 @@ export const seoDefaults = {
     "Dare County Regional Airport",
     "introductory flight experience",
     "flight training Manteo NC",
+    "Outer Banks flight school",
+    "Manteo NC flight training",
+    "Dare County flight training",
+    "airplane intro flight Outer Banks",
+    "Outer Banks aviation experience",
+    "pilot training Outer Banks",
     "things to do Outer Banks",
     "fly a plane no experience"
   ],
-  image: "/brand/wright-coast-aviation-logo.png"
+  image: "/images/obx-coast.jpg"
 };
 
 export function absoluteUrl(path = "/") {
@@ -84,9 +90,14 @@ export function createPageMetadata({
 }
 
 export function organizationJsonLd() {
+  const areaServed = siteConfig.serviceAreas.map((name) => ({
+    "@type": "Place",
+    name
+  }));
+
   return {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "Organization"],
+    "@type": ["LocalBusiness", "EducationalOrganization", "Organization"],
     "@id": absoluteUrl("/#business"),
     name: siteConfig.name,
     description: seoDefaults.description,
@@ -107,12 +118,28 @@ export function organizationJsonLd() {
     hasMap:
       "https://www.google.com/maps/search/?api=1&query=Dare%20County%20Regional%20Airport%20Manteo%20NC",
     priceRange: "$$",
-    areaServed: siteConfig.location,
+    currenciesAccepted: "USD",
+    paymentAccepted: ["Credit Card", "FlightCircle booking"],
+    areaServed,
+    serviceArea: areaServed,
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        telephone: siteConfig.phone,
+        email: siteConfig.contactEmail,
+        areaServed: "US",
+        availableLanguage: "English"
+      }
+    ],
     knowsAbout: [
       "Introductory flight experiences",
+      "Outer Banks intro flights",
       "Flight training",
+      "Pilot training",
       "Outer Banks aviation",
-      "Dare County Regional Airport"
+      "Dare County Regional Airport",
+      "Manteo NC aviation"
     ],
     sameAs: Object.values(siteConfig.social)
   };
@@ -125,9 +152,36 @@ export function websiteJsonLd() {
     "@id": absoluteUrl("/#website"),
     name: siteConfig.name,
     url: siteConfig.canonicalUrl,
+    inLanguage: "en-US",
+    about: {
+      "@id": absoluteUrl("/#business")
+    },
     publisher: {
       "@id": absoluteUrl("/#business")
     }
+  };
+}
+
+export function webPageJsonLd({
+  title,
+  description,
+  path,
+  type = "WebPage"
+}: PageSeo & { type?: "WebPage" | "CollectionPage" | "FAQPage" | "ContactPage" }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": type,
+    "@id": absoluteUrl(`${path}#webpage`),
+    url: absoluteUrl(path),
+    name: title,
+    description,
+    isPartOf: {
+      "@id": absoluteUrl("/#website")
+    },
+    about: {
+      "@id": absoluteUrl("/#business")
+    },
+    inLanguage: "en-US"
   };
 }
 
@@ -170,6 +224,12 @@ export function serviceJsonLd(services: Array<{ title: string; description: stri
         "@type": "Service",
         name: service.title,
         description: service.description,
+        serviceType: service.title,
+        areaServed: siteConfig.serviceAreas.map((name) => ({
+          "@type": "Place",
+          name
+        })),
+        url: absoluteUrl("/services"),
         provider: {
           "@type": "Organization",
           "@id": absoluteUrl("/#business"),
@@ -178,5 +238,41 @@ export function serviceJsonLd(services: Array<{ title: string; description: stri
         }
       }
     }))
+  };
+}
+
+export function articleJsonLd(article: {
+  title: string;
+  description: string;
+  slug: string;
+  heroImage: string;
+  datePublished: string;
+  dateModified: string;
+}) {
+  const url = absoluteUrl(`/resources/${article.slug}`);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${url}#article`,
+    headline: article.title,
+    description: article.description,
+    image: absoluteUrl(article.heroImage),
+    datePublished: article.datePublished,
+    dateModified: article.dateModified,
+    mainEntityOfPage: url,
+    author: {
+      "@id": absoluteUrl("/#business")
+    },
+    publisher: {
+      "@id": absoluteUrl("/#business")
+    },
+    about: [
+      "Outer Banks intro flights",
+      "Manteo flight training",
+      "Dare County Regional Airport",
+      "First-time flying experience"
+    ],
+    inLanguage: "en-US"
   };
 }

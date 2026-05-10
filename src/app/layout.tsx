@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Wright Coast Aviation",
     images: [
       {
-        url: absoluteUrl("/brand/wright-coast-aviation-logo.png"),
+        url: absoluteUrl(seoDefaults.image),
         width: 1200,
         height: 630,
         alt: "Wright Coast Aviation"
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: seoDefaults.title,
     description: seoDefaults.description,
-    images: [absoluteUrl("/brand/wright-coast-aviation-logo.png")]
+    images: [absoluteUrl(seoDefaults.image)]
   },
   manifest: "/manifest.webmanifest",
   icons: {

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { GalleryGrid } from "@/components/site/gallery-grid";
+import { JsonLd } from "@/components/site/json-ld";
 import { getGalleryPhotos } from "@/lib/cms";
-import { createPageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd, createPageMetadata, webPageJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Gallery",
@@ -17,6 +18,21 @@ export default async function GalleryPage() {
 
   return (
     <main>
+      <JsonLd
+        data={webPageJsonLd({
+          title: "Gallery",
+          description:
+            "View Wright Coast Aviation intro flight, flight training, aircraft, cockpit, and Manteo airport photos.",
+          path: "/gallery",
+          type: "CollectionPage"
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Gallery", path: "/gallery" }
+        ])}
+      />
       <section className="bg-white py-16">
         <div className="container-page max-w-4xl">
           <p className="text-sm font-bold uppercase text-[var(--sky)]">

@@ -2,7 +2,14 @@ import type { Metadata } from "next";
 import { FAQ } from "@/components/site/faq";
 import { JsonLd } from "@/components/site/json-ld";
 import { getFaqs } from "@/lib/cms";
-import { createPageMetadata, faqJsonLd } from "@/lib/seo";
+import { staticSeoFaqs } from "@/lib/resources";
+import {
+  breadcrumbJsonLd,
+  createPageMetadata,
+  faqJsonLd,
+  webPageJsonLd
+} from "@/lib/seo";
+import type { FAQItem } from "@/lib/types";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Frequently Asked Questions",
@@ -14,10 +21,25 @@ export const metadata: Metadata = createPageMetadata({
 export const revalidate = 60;
 
 export default async function FAQPage() {
-  const faqs = await getFaqs();
+  const faqs = mergeFaqs(await getFaqs(), staticSeoFaqs);
 
   return (
     <main>
+      <JsonLd
+        data={webPageJsonLd({
+          title: "Frequently Asked Questions",
+          description:
+            "Frequently asked questions about Wright Coast Aviation intro flights, flight blocks, passengers, and booking.",
+          path: "/faq",
+          type: "FAQPage"
+        })}
+      />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "FAQ", path: "/faq" }
+        ])}
+      />
       <JsonLd data={faqJsonLd(faqs)} />
       <section className="bg-white py-16">
         <div className="container-page max-w-4xl">
@@ -41,4 +63,20 @@ export default async function FAQPage() {
       </section>
     </main>
   );
+}
+
+function mergeFaqs(
+  editableFaqs: FAQItem[],
+  fallbackFaqs: Array<{ id: string; question: string; answer: string }>
+): FAQItem[] {
+  const seen = new Set(editableFaqs.map((faq) => faq.question.toLowerCase()));
+  const additions = fallbackFaqs
+    .filter((faq) => !seen.has(faq.question.toLowerCase()))
+    .map((faq, index) => ({
+      ...faq,
+      active: true,
+      sort_order: editableFaqs.length + index + 1
+    }));
+
+  return [...editableFaqs, ...additions];
 }
