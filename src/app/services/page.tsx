@@ -40,8 +40,9 @@ export default async function ServicesPage() {
           <p className="mt-5 text-lg leading-8 text-[var(--muted)]">
             Choose an intro flight experience at Dare County Regional Airport in
             Manteo. You may take the controls with a Certified Flight Instructor
-            beside you, and a strong first step for future student pilots who live here
-            full or part time.
+            beside you, making this a real first lesson — hands-on flight training
+            with an instructor beside you, and a strong first step for future
+            student pilots who live here full or part time.
           </p>
         </div>
       </section>
@@ -51,7 +52,7 @@ export default async function ServicesPage() {
           {[
             "You may take the controls",
             "No experience needed",
-            "Learn to fly over the Outer Bnks - the same skies where the Wright Brothers learned."
+            "Learn to fly over the Outer Banks — the same skies where the Wright brothers learned."
           ].map((item) => (
             <p
               key={item}
