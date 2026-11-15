@@ -33,6 +33,7 @@ export const siteConfig = {
 
 export const navItems = [
   { href: "/", label: "Home" },
+  { href: "/learn-to-fly", label: "Learn to Fly" },
   { href: "/services", label: "Reserve Your Spot" },
   { href: "/gallery", label: "Gallery" },
   { href: "/testimonials", label: "Reviews" },

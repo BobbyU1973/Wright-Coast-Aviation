@@ -3,6 +3,7 @@ import { absoluteUrl } from "@/lib/seo";
 
 const pages = [
   "",
+  "/learn-to-fly",
   "/services",
   "/gallery",
   "/testimonials",
