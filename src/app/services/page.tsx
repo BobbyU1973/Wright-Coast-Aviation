@@ -5,9 +5,9 @@ import { getServices } from "@/lib/cms";
 import { breadcrumbJsonLd, createPageMetadata, serviceJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Services",
+  title: "Discovery Flights & Training Packages",
   description:
-    "Book Outer Banks Intro Flight Experiences and Flight Training in the Birthplace of Flight with Wright Coast Aviation in Manteo, NC.",
+    "Start with a hands-on discovery flight or choose a pilot training block at Wright Coast Aviation. Train at Dare County Regional Airport in Manteo, NC.",
   path: "/services"
 });
 

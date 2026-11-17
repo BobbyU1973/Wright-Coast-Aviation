@@ -9,7 +9,7 @@ import { absoluteUrl, organizationJsonLd, seoDefaults, websiteJsonLd } from "@/l
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.canonicalUrl),
   title: {
-    default: "Wright Coast Aviation",
+    default: seoDefaults.title,
     template: "%s | Wright Coast Aviation"
   },
   description:

@@ -11,9 +11,9 @@ type PageSeo = {
 };
 
 export const seoDefaults = {
-  title: "Wright Coast Aviation",
+  title: "Flight Training in Manteo, NC | Wright Coast Aviation",
   description:
-    "Book Outer Banks intro flights and flight training in the Birthplace of Flight with Wright Coast Aviation at Dare County Regional Airport in Manteo, NC.",
+    "Learn to fly at Dare County Regional Airport in Manteo, NC. Wright Coast Aviation offers pilot training and hands-on discovery flights on the Outer Banks.",
   keywords: [
     "Wright Coast Aviation",
     "Outer Banks intro flight",

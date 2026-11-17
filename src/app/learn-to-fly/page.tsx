@@ -8,9 +8,9 @@ import { breadcrumbJsonLd, createPageMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Learn to Fly",
+  title: "Learn to Fly on the Outer Banks",
   description:
-    "Explore sport, private, and commercial pilot training with Wright Coast Aviation at Dare County Regional Airport in Manteo, NC.",
+    "Explore sport, private, and commercial pilot training with Wright Coast Aviation. Take flight lessons in a Cessna 172 at Dare County Regional Airport in Manteo, NC.",
   path: "/learn-to-fly"
 });
 
