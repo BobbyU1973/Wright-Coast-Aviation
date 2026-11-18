@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Service } from "@/lib/types";
 import { siteConfig } from "@/lib/site";
+import { serviceDescriptionParagraphs } from "@/lib/services";
 
 export function ServiceCard({ service }: { service: Service }) {
   return (
@@ -23,7 +24,13 @@ export function ServiceCard({ service }: { service: Service }) {
           </p>
           <h3 className="mt-2 text-xl font-bold">{service.title}</h3>
         </div>
-        <p className="leading-7 text-[var(--muted)]">{service.description}</p>
+        <div className="space-y-4">
+          {serviceDescriptionParagraphs(service.description).map((paragraph, index) => (
+            <p key={index} className="whitespace-pre-line leading-7 text-[var(--muted)]">
+              {paragraph}
+            </p>
+          ))}
+        </div>
         <a
           href={siteConfig.flightCircleUrl}
           target="_blank"

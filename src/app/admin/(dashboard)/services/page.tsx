@@ -48,6 +48,9 @@ export default async function AdminServicesPage() {
           rows={4}
           className="focus-ring rounded-[8px] border border-[var(--line)] px-4 py-3"
         />
+        <p className="text-sm text-[var(--muted)]">
+          Leave a blank line between paragraphs in the description.
+        </p>
         <div className="grid gap-4 md:grid-cols-[1fr_160px]">
           <input
             name="image_url"
@@ -105,6 +108,9 @@ export default async function AdminServicesPage() {
                 rows={4}
                 className="focus-ring rounded-[8px] border border-[var(--line)] px-4 py-3"
               />
+              <p className="text-sm text-[var(--muted)]">
+                Leave a blank line between paragraphs in the description.
+              </p>
               <div className="grid gap-4 md:grid-cols-[1fr_160px]">
                 <input
                   name="image_url"

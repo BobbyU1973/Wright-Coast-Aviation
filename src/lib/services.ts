@@ -17,3 +17,11 @@ export function sortServicesByPrice(services: Service[]) {
     return numericPrice(a.price_label) - numericPrice(b.price_label) || a.sort_order - b.sort_order;
   });
 }
+
+export function serviceDescriptionParagraphs(description: string) {
+  return description
+    .trim()
+    .split(/\r?\n\s*\r?\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}

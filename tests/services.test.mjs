@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { isApparelService, sortServicesByPrice } from "../src/lib/services.ts";
+import {
+  isApparelService,
+  serviceDescriptionParagraphs,
+  sortServicesByPrice
+} from "../src/lib/services.ts";
 
 const services = [
   ["Intro Flight Experience", "$179"],
@@ -37,4 +41,12 @@ test("apparel has its own least-to-most-expensive order", () => {
 test("items without a numeric price sort last", () => {
   const unpriced = { ...services[0], price_label: null, sort_order: 9 };
   assert.equal(sortServicesByPrice([unpriced, services[0]])[1], unpriced);
+});
+
+test("service descriptions separate blank-line paragraphs", () => {
+  assert.deepEqual(
+    serviceDescriptionParagraphs("First line\r\nSecond line\r\n\r\n  Next paragraph  \r\n\r\n\r\nLast."),
+    ["First line\r\nSecond line", "Next paragraph", "Last."]
+  );
+  assert.deepEqual(serviceDescriptionParagraphs("  Single paragraph.  "), ["Single paragraph."]);
 });
