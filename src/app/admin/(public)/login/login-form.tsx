@@ -51,10 +51,10 @@ export function LoginForm() {
     <div className="mx-auto max-w-md rounded-[8px] border border-[var(--line)] bg-white p-6 soft-shadow">
       <div className="text-center">
         <Image
-          src="/brand/wright-coast-aviation-logo.svg"
+          src="/brand/wright-coast-aviation-logo-display.png"
           alt="Wright Coast Aviation"
           width={220}
-          height={116}
+          height={187}
           className="mx-auto h-[94px] w-auto"
           priority
         />

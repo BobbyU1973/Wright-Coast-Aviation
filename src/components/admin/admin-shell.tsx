@@ -16,10 +16,10 @@ export function AdminShell({
         <aside className="rounded-[8px] border border-[var(--line)] bg-white p-4 lg:sticky lg:top-24 lg:h-fit">
           <Link href="/admin" className="focus-ring inline-flex">
             <Image
-              src="/brand/wright-coast-aviation-logo.svg"
+              src="/brand/wright-coast-aviation-logo-display.png"
               alt="Wright Coast Aviation"
               width={190}
-              height={98}
+              height={162}
               className="h-[72px] w-auto"
             />
           </Link>

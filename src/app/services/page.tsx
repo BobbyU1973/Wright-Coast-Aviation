@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { JsonLd } from "@/components/site/json-ld";
 import { ServiceCard } from "@/components/site/service-card";
 import { getServices } from "@/lib/cms";
 import { breadcrumbJsonLd, createPageMetadata, serviceJsonLd } from "@/lib/seo";
+import { isApparelService, sortServicesByPrice } from "@/lib/services";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Discovery Flights & Training Packages",
@@ -14,11 +16,11 @@ export const metadata: Metadata = createPageMetadata({
 export const revalidate = 60;
 
 export default async function ServicesPage() {
-  const services = (await getServices()).sort((a, b) => {
-    const aPrice = Number(a.price_label?.replace(/[^0-9]/g, "") || 0);
-    const bPrice = Number(b.price_label?.replace(/[^0-9]/g, "") || 0);
-    return aPrice - bPrice;
-  });
+  const services = await getServices();
+  const flightServices = sortServicesByPrice(
+    services.filter((service) => !isApparelService(service))
+  );
+  const apparelServices = sortServicesByPrice(services.filter(isApparelService));
 
   return (
     <main>
@@ -28,7 +30,7 @@ export default async function ServicesPage() {
           { name: "Services", path: "/services" }
         ])}
       />
-      <JsonLd data={serviceJsonLd(services)} />
+      <JsonLd data={serviceJsonLd(flightServices)} />
       <section className="bg-white py-16">
         <div className="container-page max-w-4xl">
           <p className="text-sm font-bold uppercase text-[var(--sky)]">
@@ -40,8 +42,11 @@ export default async function ServicesPage() {
           <p className="mt-5 text-lg leading-8 text-[var(--muted)]">
             Choose an intro flight experience at Dare County Regional Airport in
             Manteo. You may take the controls with a Certified Flight Instructor
-            beside you, making this a real first lesson — hands-on flight training
-            with an instructor beside you, and a strong first step for future
+            beside you, making this a real first lesson —{" "}
+            <Link href="/learn-to-fly" className="focus-ring font-bold underline">
+              hands-on flight training
+            </Link>
+            {" "}with an instructor beside you, and a strong first step for future
             student pilots who live here full or part time.
           </p>
         </div>
@@ -66,11 +71,35 @@ export default async function ServicesPage() {
 
       <section className="py-16">
         <div className="container-page grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+          {flightServices.map((service) => (
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
       </section>
+
+      {apparelServices.length > 0 ? (
+        <section
+          className="border-t border-[var(--line)] bg-white py-16"
+          aria-labelledby="apparel-heading"
+        >
+          <div className="container-page">
+            <p className="text-sm font-bold uppercase text-[var(--sky)]">
+              Wright Coast Aviation
+            </p>
+            <h2
+              id="apparel-heading"
+              className="mt-3 text-3xl font-bold sm:text-4xl"
+            >
+              Apparel Now Available
+            </h2>
+            <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              {apparelServices.map((service) => (
+                <ServiceCard key={service.id} service={service} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
     </main>
   );
 }

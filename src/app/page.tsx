@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ButtonAnchor } from "@/components/site/button-anchor";
 import { ButtonLink } from "@/components/site/button-link";
 import { JsonLd } from "@/components/site/json-ld";
@@ -10,6 +11,7 @@ import {
   getTestimonials
 } from "@/lib/cms";
 import { serviceJsonLd } from "@/lib/seo";
+import { isApparelService } from "@/lib/services";
 
 export const revalidate = 60;
 
@@ -22,12 +24,14 @@ export default async function HomePage() {
 
   return (
     <main>
-      <JsonLd data={serviceJsonLd(services)} />
+      <JsonLd
+        data={serviceJsonLd(services.filter((service) => !isApparelService(service)))}
+      />
 
       <section className="relative min-h-[78svh] overflow-hidden">
         <Image
           src="/images/obx-coast.jpg"
-          alt=""
+          alt="Aerial view of the Outer Banks coastline"
           fill
           priority
           sizes="100vw"
@@ -37,10 +41,10 @@ export default async function HomePage() {
         <div className="container-page relative z-10 flex min-h-[78svh] items-center py-16">
           <div className="fade-up max-w-3xl text-white">
             <Image
-              src="/brand/wright-coast-aviation-logo.svg"
+              src="/brand/wright-coast-aviation-logo-display.png"
               alt="Wright Coast Aviation"
               width={300}
-              height={156}
+              height={255}
               priority
               className="mb-5 h-[116px] w-auto drop-shadow-[0_18px_28px_rgba(0,0,0,0.38)] sm:h-[148px]"
             />
@@ -70,17 +74,26 @@ export default async function HomePage() {
           </SectionHeading>
           <div className="grid gap-3 sm:grid-cols-3">
             {[
-              ["Birthplace of Flight", "Outer Banks aviation history"],
-              ["Vacation adventure", "A memory beyond the beach"],
-              ["Local training", "For full-time and part-time residents"]
-            ].map(([value, label]) => (
-              <div
+              [
+                "Birthplace of Flight",
+                "Outer Banks aviation history",
+                "/learn-to-fly"
+              ],
+              ["Vacation adventure", "A memory beyond the beach", "/services"],
+              [
+                "Local training",
+                "For full-time and part-time residents",
+                "/learn-to-fly"
+              ]
+            ].map(([value, label, href]) => (
+              <Link
                 key={label}
-                className="rounded-[8px] border border-[var(--line)] bg-[#f7fbff] p-5"
+                href={href}
+                className="focus-ring rounded-[8px] border border-[var(--line)] bg-[#f7fbff] p-5"
               >
                 <p className="text-2xl font-bold text-[var(--navy)]">{value}</p>
                 <p className="mt-2 text-sm text-[var(--muted)]">{label}</p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

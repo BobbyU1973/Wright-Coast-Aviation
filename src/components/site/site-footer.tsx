@@ -94,10 +94,10 @@ export function SiteFooter() {
         <div>
           <Link href="/" className="focus-ring inline-flex">
             <Image
-              src="/brand/wright-coast-aviation-logo.svg"
+              src="/brand/wright-coast-aviation-logo-display.png"
               alt="Wright Coast Aviation"
               width={210}
-              height={110}
+              height={179}
               className="h-[82px] w-auto"
             />
           </Link>

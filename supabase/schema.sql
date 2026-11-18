@@ -158,7 +158,7 @@ insert into public.site_content (
 values (
   1,
   'ENJOY FLYING AT THE BIRTHPLACE OF FLIGHT - THE NC OBX!',
-  'Book an unforgettable vacation flight or start training to become a pilot.',
+  'Learn to fly on the Outer Banks. Start with a hands-on discovery flight in Manteo.',
   'There is no better place to fly than the coast where aviation history began. Fly from Dare County Regional Airport in Manteo while visiting the Outer Banks, or start training close to home.',
   'Book Now',
   'View Flight Experiences',

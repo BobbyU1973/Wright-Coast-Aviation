@@ -12,7 +12,12 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#073763",
     icons: [
       {
-        src: "/brand/wright-coast-aviation-logo.png",
+        src: "/brand/wright-coast-aviation-icon-192.png",
+        sizes: "192x192",
+        type: "image/png"
+      },
+      {
+        src: "/brand/wright-coast-aviation-icon-512.png",
         sizes: "512x512",
         type: "image/png"
       }

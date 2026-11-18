@@ -9,7 +9,7 @@ export function ServiceCard({ service }: { service: Service }) {
         <div className="relative aspect-[4/3] bg-[#dcecf5]">
           <Image
             src={service.image_url}
-            alt=""
+            alt={`${service.title} at Wright Coast Aviation`}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover"

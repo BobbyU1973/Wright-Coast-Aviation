@@ -22,10 +22,10 @@ export function SiteHeader() {
           onClick={() => setOpen(false)}
         >
           <Image
-            src="/brand/wright-coast-aviation-logo.svg"
+            src="/brand/wright-coast-aviation-logo-display.png"
             alt="Wright Coast Aviation"
             width={184}
-            height={96}
+            height={156}
             priority
             className="h-[66px] w-auto sm:h-[76px]"
           />

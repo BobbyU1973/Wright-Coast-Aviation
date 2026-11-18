@@ -26,7 +26,7 @@ export const seoDefaults = {
     "things to do Outer Banks",
     "fly a plane no experience"
   ],
-  image: "/brand/wright-coast-aviation-logo.png"
+  image: "/brand/wright-coast-aviation-social.png"
 };
 
 export function absoluteUrl(path = "/") {
@@ -93,8 +93,8 @@ export function organizationJsonLd() {
     url: siteConfig.canonicalUrl,
     email: siteConfig.contactEmail,
     telephone: siteConfig.phone,
-    image: absoluteUrl("/brand/wright-coast-aviation-logo.png"),
-    logo: absoluteUrl("/brand/wright-coast-aviation-logo.png"),
+    image: absoluteUrl("/brand/wright-coast-aviation-logo-display.png"),
+    logo: absoluteUrl("/brand/wright-coast-aviation-logo-display.png"),
     address: {
       "@type": "PostalAddress",
       ...siteConfig.address
@@ -106,8 +106,6 @@ export function organizationJsonLd() {
     },
     hasMap:
       "https://www.google.com/maps/search/?api=1&query=Dare%20County%20Regional%20Airport%20Manteo%20NC",
-    priceRange: "$$",
-    areaServed: siteConfig.location,
     knowsAbout: [
       "Introductory flight experiences",
       "Flight training",
