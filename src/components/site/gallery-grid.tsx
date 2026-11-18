@@ -102,12 +102,12 @@ export function GalleryGrid({ photos }: { photos: GalleryPhoto[] }) {
 
       <div
         ref={railRef}
-        className="hidden gap-5 overflow-x-auto pb-4 md:flex md:snap-x md:snap-mandatory"
+        className="grid gap-5 md:flex md:overflow-x-auto md:pb-4 md:snap-x md:snap-mandatory"
       >
         {photos.map((photo, index) => (
           <figure
             key={photo.id}
-            className="w-[340px] shrink-0 snap-start overflow-hidden rounded-[8px] border border-[var(--line)] bg-white soft-shadow lg:w-[410px]"
+            className="overflow-hidden rounded-[8px] border border-[var(--line)] bg-white soft-shadow md:w-[340px] md:shrink-0 md:snap-start lg:w-[410px]"
           >
             <button
               type="button"
@@ -120,40 +120,6 @@ export function GalleryGrid({ photos }: { photos: GalleryPhoto[] }) {
                 alt={photo.caption || "Wright Coast Aviation photo"}
                 fill
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                className="object-cover transition duration-500 group-hover:scale-[1.03]"
-              />
-            </button>
-            <figcaption className="min-h-[84px] p-4">
-              {photo.category ? (
-                <p className="text-xs font-bold uppercase text-[var(--sky)]">
-                  {photo.category}
-                </p>
-              ) : null}
-              <p className="mt-1 text-sm leading-6 text-[var(--muted)]">
-                {photo.caption || "Wright Coast Aviation"}
-              </p>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-
-      <div className="grid gap-5 md:hidden">
-        {photos.map((photo, index) => (
-          <figure
-            key={photo.id}
-            className="overflow-hidden rounded-[8px] border border-[var(--line)] bg-white soft-shadow"
-          >
-            <button
-              type="button"
-              className="focus-ring group relative block aspect-[4/3] w-full bg-[#dcecf5] text-left"
-              onClick={() => setActiveIndex(index)}
-              aria-label={`Open ${photo.caption || "Wright Coast Aviation photo"}`}
-            >
-              <Image
-                src={photo.image_url}
-                alt={photo.caption || "Wright Coast Aviation photo"}
-                fill
-                sizes="100vw"
                 className="object-cover transition duration-500 group-hover:scale-[1.03]"
               />
             </button>
