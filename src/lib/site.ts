@@ -27,7 +27,8 @@ export const siteConfig = {
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61562992080545",
     instagram: "https://www.instagram.com/wrightcoastaviation/",
-    tiktok: "https://www.tiktok.com/@wright.coast.avia"
+    tiktok: "https://www.tiktok.com/@wright.coast.avia",
+    youtube: "https://www.youtube.com/@WrightCoastAviation"
   }
 };
 
